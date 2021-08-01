@@ -20,8 +20,9 @@ def callback(request):
     if (request.method == 'POST'):
         # get X-Line-Signature header value
         signature = request.headers['X-Line-Signature']
-        global domain
-        domain = request.META['HTTP_HOST']
+
+        # global domain
+        # domain = request.META['HTTP_HOST']
 
         # get request
         body = request.get_data(as_text=True)
