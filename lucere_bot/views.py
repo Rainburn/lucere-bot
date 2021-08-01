@@ -45,7 +45,7 @@ def callback(request):
 def handle_message(event):
     msg_from_user = event.message.text
     if (msg_from_user == "Hello"):
-        message = TextSendMessage(text=str(event.source.type))
+        message = TextSendMessage(text=str(event.source.user_id))
         line_bot_api.reply_message(event.reply_token, message)
     else :
         message = TextSendMessage(text=event.message.text)
