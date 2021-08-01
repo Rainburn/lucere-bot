@@ -28,8 +28,6 @@ def callback(request):
 
         # get request
         body = request.body.decode('utf-8')
-        
-        logger.debug("Response body : ", body)
 
         # handle webhook body
         try:
