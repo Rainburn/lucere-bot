@@ -19,13 +19,13 @@ def index(request):
 def callback(request):
     if (request.method == 'POST'):
         # get X-Line-Signature header value
-        signature = request.headers['X-Line-Signature']
+        signature = request.META['HTTP_X_LINE_SIGNATURE']
 
         global domain
         domain = request.META['HTTP_HOST']
 
         # get request
-        body = request.get_data(as_text=True)
+        body = request.body.decode('utf-8')
 
         # handle webhook body
         try:
