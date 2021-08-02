@@ -81,7 +81,7 @@ def handle_message(event):
                 return
 
 
-        nickname = "Blackbird"
+        nickname = " ".join(parameters[1:len(parameters)])
 
         # if not (is_user_registered(event.reply_token, user_id)):
         #     show_error_msg(event.reply_token, "You have not registered !")
