@@ -85,7 +85,7 @@ def handle_message(event):
             show_error_msg(event.reply_token, "You have registered !")
             return
 
-        register(user_id, nickname)
+        user_id = register(user_id, nickname)
 
     elif (command == "rename"):
         user_id = event.source.user_id
