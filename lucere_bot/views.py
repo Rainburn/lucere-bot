@@ -58,8 +58,14 @@ def handle_message(event):
     # original message
     msg_from_user = event.message.text
 
+    user_id = event.source.user_id
+
     # check whether it's a command or chat
     if (msg_from_user[0] != "/"): # not command
+        return
+
+    if not (is_user_registered(user_id)):
+        show_msg(event.reply_token, "Add the bot then register yourself to use it")
         return
 
     parameters = msg_from_user[1:len(msg_from_user)].split(" ")
@@ -67,7 +73,6 @@ def handle_message(event):
     command = parameters[0]
 
     if (command == "register"):
-        user_id = event.source.user_id
 
         if (is_user_registered(user_id)):
             show_error_msg(event.reply_token, "Cannot register twice !")
@@ -93,7 +98,6 @@ def handle_message(event):
         user_id_on_db = register(user_id, nickname)
 
     elif (command == "rename"):
-        user_id = event.source.user_id
 
         if (len(parameters) == 1): # no new nickname was given
             show_error_msg(event.reply_token, "Failed to rename. New nickname cannot be empty")
@@ -116,7 +120,6 @@ def handle_message(event):
         event_id = add_event(event_name, event_site, event_time)
 
         # Event creator auto join the event
-        user_id = event.source.user_id
         join_event(event_id, user_id)
 
         # show event details
@@ -128,7 +131,6 @@ def handle_message(event):
 
         event_details  = parameters[1].split("-")
         event_id = event_details[1]
-        user_id = event.source.user_id
         join_event(event_id, user_id)
     
         # show event details
@@ -140,7 +142,6 @@ def handle_message(event):
 
         event_details  = parameters[1].split("-")
         event_id = event_details[1]
-        user_id = event.source.user_id
         leave_event(event_id, user_id)
 
             # show event details
