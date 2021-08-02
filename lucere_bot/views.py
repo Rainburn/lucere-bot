@@ -160,7 +160,7 @@ def show_error_msg(reply_token, msg=""):
     line_bot_api.reply_message(reply_token, message)
 
 def register(user_id, nickname):
-    new_user = User(userid=user_id,nickname=nickname)
+    new_user = User(userid=user_id, nickname=nickname)
     new_user.save()
     return new_user.userid
 
