@@ -69,6 +69,10 @@ def handle_message(event):
     if (command == "register"):
         user_id = event.source.user_id
 
+        if (is_user_registered(user_id)):
+            show_error_msg(event.reply_token, "Cannot register twice !")
+            return
+
         if (len(parameters) == 1): # no nickname was given
             try:
                 profile = line_bot_api.get_profile(user_id)
@@ -82,11 +86,6 @@ def handle_message(event):
 
 
         nickname = " ".join(parameters[1:len(parameters)])
-
-        if (is_user_registered(event.reply_token, user_id)):
-            show_error_msg(event.reply_token, "Cannot register twice !")
-            return
-
         
         user_id = str(user_id)
         nickname = str(nickname)
