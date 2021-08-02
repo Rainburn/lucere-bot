@@ -107,47 +107,44 @@ def handle_message(event):
         rename(user_id, nickname)
 
     elif (command == "create"):
-        try:
-            event_name = parameters[1]
-            event_site = parameters[2]
-            event_time = parameters[3]
-            event_id = add_event(event_name, event_site, event_time)
 
-            # Event creator auto join the event
-            user_id = event.source.user_id
-            join_event(event_id, user_id)
+        # TODO: Add try-except later
 
-            # show event details
-            show_event_details(event.reply_token, event_id)
+        event_name = parameters[1]
+        event_site = parameters[2]
+        event_time = parameters[3]
+        event_id = add_event(event_name, event_site, event_time)
 
-        except:
-            show_error_msg(event.reply_token)
+        # Event creator auto join the event
+        user_id = event.source.user_id
+        join_event(event_id, user_id)
+
+        # show event details
+        show_event_details(event.reply_token, event_id)
 
     elif (command == "join"):
-        try :
-            event_details  = parameters[1].split("-")
-            event_id = event_details[1]
-            user_id = event.source.user_id
-            join_event(event_id, user_id)
-        
-            # show event details
-            show_event_details(event.reply_token, event_id)
-        
-        except:
-            show_error_msg(event.reply_token, "Failed to join event!")
+
+        # TODO: Add try-except later
+
+        event_details  = parameters[1].split("-")
+        event_id = event_details[1]
+        user_id = event.source.user_id
+        join_event(event_id, user_id)
+    
+        # show event details
+        show_event_details(event.reply_token, event_id)
 
     elif (command == "leave"):
-        try:
-            event_details  = parameters[1].split("-")
-            event_id = event_details[1]
-            user_id = event.source.user_id
-            leave_event(event_id, user_id)
 
-             # show event details
-            show_event_details(event.reply_token, event_id)
+        # TODO: Add try-except later
 
-        except:
-            show_error_msg(event.reply_token, "Invalid event ID !")
+        event_details  = parameters[1].split("-")
+        event_id = event_details[1]
+        user_id = event.source.user_id
+        leave_event(event_id, user_id)
+
+            # show event details
+        show_event_details(event.reply_token, event_id)
 
     else : # Command not found
         warn_text = "Command '" + command + "' not found !"
