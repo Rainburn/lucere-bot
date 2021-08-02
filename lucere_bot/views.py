@@ -112,7 +112,7 @@ def handle_message(event):
 
         event_name = parameters[1]
         event_site = parameters[2]
-        event_time = parameters[3]
+        event_time = parameters[3:len(parameters)]
         event_id = add_event(event_name, event_site, event_time)
 
         # Event creator auto join the event
@@ -242,10 +242,10 @@ def show_event_details(reply_token, eventid):
     
     try :
         event = Event.objects.get(id=eventid)
-        event_name_id = event.name + "-" + str(event.id) + '\n'
-        event_name = event.name + '\n'
+        event_name_id = "Event ID: " + event.name + "-" + str(event.id) + '\n'
+        event_name = event.name
         event_site = event.site + '\n'
-        event_when = event.when + '\n'
+        event_when = event.when + '\n\n'
 
         result = event_name_id + event_name + event_site + event_when
 
