@@ -183,7 +183,14 @@ def leave_event(eventid, userid):
     instance.delete()
     return
 
-def is_user_registered(replytoken, userid):
+def is_user_registered(userid):
+    user = list(User.objects.filter(userid=userid))
+    if user:
+        return True
+    else:
+        return False
+
+def force_register_user(replytoken, userid):
     result = list(User.objects.filter(userid=userid))
     if not result: # User not registered
         
