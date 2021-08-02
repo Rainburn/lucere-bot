@@ -160,6 +160,17 @@ def handle_message(event):
         event_details  = parameters[1].split("-")
         event_id = event_details[1]
         show_event_details(event.reply_token, event_id)
+    
+    elif (command == "help"):
+        help_string = help_string + "# commands guide" + '\n\n'
+        help_string = help_string + "create event : /create [event_name] [where/site/game] [time-userdefined]" + '\n\n'
+        help_string = help_string + "join event : /join [event-name]-[event-id]" + '\n'
+        help_string = help_string + "register : /register [nickname]" + '\n'
+        help_string = help_string + "rename : /rename [nickname]" + '\n'
+        help_string = help_string + "leave event : /leave [event_name]-[event-id]" + '\n'
+        help_string = help_string + "show event : /show [event-name]-[event-id]"
+
+        show_msg(event.reply_token, help_string)
 
     else : # Command not found
         warn_text = "Command '" + command + "' not found !"
