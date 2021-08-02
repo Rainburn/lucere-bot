@@ -111,7 +111,8 @@ def handle_message(event):
             user_id = event.source.user_id
             join_event(event_id, user_id)
 
-            # TODO: show event details
+            # show event details
+            show_event_details(event.reply_token, event_id)
 
         except:
             show_error_msg(event.reply_token)
@@ -123,7 +124,8 @@ def handle_message(event):
             user_id = event.source.user_id
             join_event(event_id, user_id)
         
-            # TODO: show event details
+            # show event details
+            show_event_details(event.reply_token, event_id)
         
         except:
             show_error_msg(event.reply_token, "Failed to join event!")
