@@ -243,7 +243,7 @@ def show_event_details(reply_token, eventid):
     try :
         event = Event.objects.get(id=eventid)
         event_name_id = "Event ID: " + event.name + "-" + str(event.id) + '\n'
-        event_name = event.name
+        event_name = event.name + " "
         event_site = event.site + '\n'
         event_when = event.when + '\n\n'
 
