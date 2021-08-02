@@ -2,7 +2,7 @@ from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from linebot import LineBotApi, WebhookHandler, LineBotApiError
+from linebot import LineBotApi, WebhookHandler
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from datetime import datetime
@@ -76,7 +76,7 @@ def handle_message(event):
                 register(user_id, line_username)
                 return
             
-            except LineBotApiError as e:
+            except:
                 show_error_msg(event.reply_token, "Cannot register. Please add the bot as your friend or include your nickname after 'register' command")
                 return
 
@@ -224,7 +224,7 @@ def force_register_user(replytoken, userid):
             line_username = profile.display_name
             register(userid, line_username)
 
-        except LineBotApiError as e:
+        except:
             error_msg = TextSendMessage(text="Something's wrong. Adding Lucere BOT may fix the issue.")
             line_bot_api.reply_message(replytoken, error_msg)
             return
