@@ -82,6 +82,7 @@ def handle_message(event):
         
 
         if (is_user_registered(event.reply_token, user_id)):
+            show_error_msg(event.reply_token, "You have registered !")
             return
 
         register(user_id, nickname)
