@@ -2,7 +2,7 @@ from django.conf import settings
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseBadRequest, HttpResponseForbidden, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
-from linebot import LineBotApi, WebhookHandler
+from linebot import LineBotApi, WebhookHandler, LineBotApiError
 from linebot.exceptions import InvalidSignatureError
 from linebot.models import MessageEvent, TextMessage, TextSendMessage
 from datetime import datetime
