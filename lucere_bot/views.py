@@ -59,7 +59,7 @@ def handle_message(event):
     if (msg_from_user[0] != "/"): # not command
         return
 
-    parameters = msg_from_user[1:len(msg_from_user)+1].split(" ")
+    parameters = msg_from_user[1:len(msg_from_user)].split(" ")
 
     command = parameters[0]
 
@@ -78,7 +78,7 @@ def handle_message(event):
                 return
 
 
-        nickname = " ".join(parameters[1:len(parameters)+1])
+        nickname = " ".join(parameters[1:len(parameters)])
         
 
         if (is_user_registered(event.reply_token, user_id)):
@@ -97,7 +97,7 @@ def handle_message(event):
             show_error_msg(event.reply_token, "Only registered users can use 'rename' command")
             return
 
-        nickname = " ".join(parameters[1:len(parameters)+1])
+        nickname = " ".join(parameters[1:len(parameters)])
         rename(user_id, nickname)
 
     elif (command == "create"):
@@ -136,6 +136,10 @@ def handle_message(event):
             event_id = event_details[1]
             user_id = event.source.user_id
             leave_event(event_id, user_id)
+
+             # show event details
+            show_event_details(event.reply_token, event_id)
+
         except:
             show_error_msg(event.reply_token, "Invalid event ID !")
 
@@ -167,8 +171,12 @@ def rename(user_id, nickname):
 def add_event(name, site, when):
     new_event = Event(name=name, site=site, when=when)
     new_event.save()
+    return new_event.id
 
 def join_event(eventid, userid):
+
+    # eventid needed to be int
+    eventid = int(eventid)
 
     # check whether user has already join the event
     result = list(EventParticipant.objects.filter(eventid=eventid, userid=userid))
@@ -179,6 +187,9 @@ def join_event(eventid, userid):
     new_member.save()
 
 def leave_event(eventid, userid):
+    # eventid needed to be int
+    eventid = int(eventid)
+
     instance = EventParticipant.objects.get(eventid=eventid, userid=userid)
     instance.delete()
     return
@@ -214,6 +225,9 @@ def show_event_details(reply_token, eventid):
     # [event_site]
     # [event_when]
     # [list of members]
+
+    # eventid needed to be int
+    eventid = int(eventid)
 
     result = ""
     
