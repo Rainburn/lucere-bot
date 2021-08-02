@@ -79,8 +79,6 @@ def handle_message(event):
 
 
         nickname = " ".join(parameters[1:len(parameters)])
-        
-        show_msg(event.reply_token, nickname)
 
         if (is_user_registered(event.reply_token, user_id)):
             show_error_msg(event.reply_token, "You have registered !")
@@ -181,18 +179,24 @@ def join_event(eventid, userid):
     eventid = int(eventid)
 
     # check whether user has already join the event
-    result = list(EventParticipant.objects.filter(eventid=eventid, userid=userid))
+    event = Event.objects.get(id=eventid)
+    user = User.objects.get(userid=userid)
+
+    result = list(EventParticipant.objects.filter(event=event, user=user))
     if result:
         return
 
-    new_member = EventParticipant(eventid=eventid, userid=userid)
+    new_member = EventParticipant(event=event, user=user)
     new_member.save()
 
 def leave_event(eventid, userid):
     # eventid needed to be int
     eventid = int(eventid)
 
-    instance = EventParticipant.objects.get(eventid=eventid, userid=userid)
+    event = Event.objects.get(id=eventid)
+    user = User.objects.get(userid=userid)
+
+    instance = EventParticipant.objects.get(event=event, user=user)
     instance.delete()
     return
 
@@ -242,11 +246,11 @@ def show_event_details(reply_token, eventid):
 
         result = event_name_id + event_name + event_site + event_when
 
-        members = list(EventParticipant.objects.filter(eventid=eventid))
-        for i in range(len(members)):
-            user_id = members[i].userid
+        event = Event.objects.get(id=eventid)
 
-            user = User.objects.get(userid=user_id)
+        members = list(EventParticipant.objects.filter(event=event))
+        for i in range(len(members)):
+            user = members[i].user
             nickname = user.nickname
             
             currMember = f'{i+1}. {nickname}\n'

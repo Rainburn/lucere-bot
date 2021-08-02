@@ -12,8 +12,8 @@ class UserAdmin(admin.ModelAdmin):
     search_fields = ('userid', 'nickname')
 
 class EventParticipantAdmin(admin.ModelAdmin):
-    list_display = ('eventid', 'userid')
-    search_fields = ('eventid', 'userid')
+    list_display = ('event', 'user')
+    search_fields = ('event', 'user')
 
 admin.site.register(Event, EventAdmin)
 admin.site.register(User, UserAdmin)

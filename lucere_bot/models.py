@@ -11,11 +11,11 @@ class Event(models.Model):
 
 
 class User(models.Model):
-    userid = models.CharField(max_length = 200, primary_key = True)
+    userid = models.CharField(max_length = 200, unique=True)
     nickname = models.CharField(max_length = 50)
 
 
 class EventParticipant(models.Model):
-    eventid = models.ForeignKey(Event, on_delete=models.CASCADE)
-    userid = models.ForeignKey(User, on_delete=models.CASCADE)
+    event = models.ForeignKey(Event, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
