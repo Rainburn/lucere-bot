@@ -162,7 +162,7 @@ def show_error_msg(reply_token, msg=""):
 def register(user_id, nickname):
     new_user = User(userid=user_id,nickname=nickname)
     new_user.save()
-    return new_user.id
+    return new_user.userid
 
 def rename(user_id, nickname):
     user = User.objects.get(userid=user_id)
