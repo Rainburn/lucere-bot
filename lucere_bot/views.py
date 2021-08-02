@@ -65,7 +65,6 @@ def handle_message(event):
 
     if (command == "register"):
         user_id = event.source.user_id
-        show_msg(event.reply_token, user_id)
 
         if (len(parameters) == 1): # no nickname was given
             try:
@@ -81,6 +80,7 @@ def handle_message(event):
 
         nickname = " ".join(parameters[1:len(parameters)])
         
+        show_msg(event.reply_token, nickname)
 
         if (is_user_registered(event.reply_token, user_id)):
             show_error_msg(event.reply_token, "You have registered !")
