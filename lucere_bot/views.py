@@ -54,6 +54,7 @@ def handle_message(event):
     # register : /register [nickname]
     # rename : /rename [nickname]
     # leave event : /leave [event_name]-[event-id]
+    # show event : /show [event-name]-[event-id]
 
     # original message
     msg_from_user = event.message.text
@@ -145,6 +146,11 @@ def handle_message(event):
         leave_event(event_id, user_id)
 
             # show event details
+        show_event_details(event.reply_token, event_id)
+    
+    elif (command == "show"):
+        event_details  = parameters[1].split("-")
+        event_id = event_details[1]
         show_event_details(event.reply_token, event_id)
 
     else : # Command not found
