@@ -65,10 +65,6 @@ def handle_message(event):
     if (msg_from_user[0] != "/"): # not command
         return
 
-    if not (is_user_registered(user_id)):
-        show_msg(event.reply_token, "Add the bot then register yourself to use it")
-        return
-
     parameters = msg_from_user[1:len(msg_from_user)].split(" ")
 
     command = parameters[0]
@@ -113,6 +109,10 @@ def handle_message(event):
 
     elif (command == "create"):
 
+        # check whether the user can use the bot
+        if not(can_use_bot(event.reply_token, user_id)):
+            return
+
         # TODO: Add try-except later
 
         event_name = parameters[1]
@@ -127,6 +127,10 @@ def handle_message(event):
         show_event_details(event.reply_token, event_id)
 
     elif (command == "join"):
+        
+        # check whether the user can use the bot
+        if not(can_use_bot(event.reply_token, user_id)):
+            return
 
         # TODO: Add try-except later
 
@@ -139,6 +143,10 @@ def handle_message(event):
 
     elif (command == "leave"):
 
+        # check whether the user can use the bot
+        if not(can_use_bot(event.reply_token, user_id)):
+            return
+        
         # TODO: Add try-except later
 
         event_details  = parameters[1].split("-")
@@ -158,6 +166,13 @@ def handle_message(event):
         message = TextSendMessage(text=warn_text)
         line_bot_api.reply_message(event.reply_token, message)
     
+
+def can_use_bot(reply_token, userid):
+    if not (is_user_registered(userid)):
+        show_msg(reply_token, "Add the bot then register yourself to use it")
+        return False
+    else:
+        return True
 
 def show_msg(reply_token, msg):
     message = TextSendMessage(text=msg)
