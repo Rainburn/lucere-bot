@@ -162,7 +162,7 @@ def handle_message(event):
         show_event_details(event.reply_token, event_id)
     
     elif (command == "help"):
-        help_string = help_string + "# commands guide" + '\n\n'
+        help_string = "# commands guide" + '\n\n'
         help_string = help_string + "create event : /create [event_name] [where/site/game] [time-userdefined]" + '\n\n'
         help_string = help_string + "join event : /join [event-name]-[event-id]" + '\n'
         help_string = help_string + "register : /register [nickname]" + '\n'
