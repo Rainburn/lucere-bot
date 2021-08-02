@@ -83,14 +83,14 @@ def handle_message(event):
 
         nickname = " ".join(parameters[1:len(parameters)])
 
-        if (is_user_registered(event.reply_token, user_id)):
-            show_error_msg(event.reply_token, "You have registered !")
+        if not (is_user_registered(event.reply_token, user_id)):
+            show_error_msg(event.reply_token, "You have not registered !")
             return
 
         
         user_id = str(user_id)
         nickname = str(nickname)
-        
+
         user_id_on_db = register(user_id, nickname)
 
     elif (command == "rename"):
