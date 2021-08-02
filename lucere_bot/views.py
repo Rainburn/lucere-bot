@@ -112,7 +112,7 @@ def handle_message(event):
 
         event_name = parameters[1]
         event_site = parameters[2]
-        event_time = parameters[3:len(parameters)]
+        event_time = " ".join(parameters[3:len(parameters)])
         event_id = add_event(event_name, event_site, event_time)
 
         # Event creator auto join the event
