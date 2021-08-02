@@ -16,6 +16,9 @@ handler = WebhookHandler(settings.LINE_CHANNEL_SECRET)
 # Create your views here.
 def index(request):
     x = "current date : " + str(datetime.now())
+    userid = "skyxrna"
+    nickname = "rainburn"
+    register(userid, nickname)
     return HttpResponse(x)
 
 @csrf_exempt
