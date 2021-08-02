@@ -71,7 +71,7 @@ def handle_message(event):
 
         if (len(parameters) == 1): # no nickname was given
             try:
-                profile = line_bot_api.get_profile(userid)
+                profile = line_bot_api.get_profile(user_id)
                 line_username = profile.display_name
                 register(user_id, line_username)
                 return
