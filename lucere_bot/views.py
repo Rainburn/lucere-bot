@@ -83,9 +83,9 @@ def handle_message(event):
 
         nickname = " ".join(parameters[1:len(parameters)])
 
-        # if not (is_user_registered(event.reply_token, user_id)):
-        #     show_error_msg(event.reply_token, "You have not registered !")
-        #     return
+        if (is_user_registered(event.reply_token, user_id)):
+            show_error_msg(event.reply_token, "Cannot register twice !")
+            return
 
         
         user_id = str(user_id)
@@ -100,7 +100,7 @@ def handle_message(event):
             show_error_msg(event.reply_token, "Failed to rename. New nickname cannot be empty")
             return
 
-        if not (is_user_registered(event.reply_token, user_id)):
+        if not (is_user_registered(user_id)):
             show_error_msg(event.reply_token, "Only registered users can use 'rename' command")
             return
 
